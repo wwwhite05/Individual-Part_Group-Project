@@ -89,8 +89,6 @@ function createComposition() {
 
 
 
-
-
 // Function to generate a new rectangle with certain constraints.
 function generateRectangle() {
   let widthInUnits, heightInUnits;
@@ -250,7 +248,6 @@ function getRandomColor(previousColor) {
 
 function generateLines() {
   background(backgroundColor);
-  translate(width / 2 - unitHeight / 2, height / 2 - unitHeight / 2);
   for (let recta of rectanglesList) {
     recta.displayLines();
   }
