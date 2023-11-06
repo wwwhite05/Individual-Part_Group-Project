@@ -26,13 +26,6 @@ function setup() {
   lineGenerateButton.mousePressed(generateLines); 
 }
 
-function generateLines() {
-  background(backgroundColor);
-  translate(-width / 2 - unitHeight / 2, -height / 2 - unitHeight / 2);
-  for (let recta of rectanglesList) {
-    recta.displayLines();
-  }
-}
 
 function draw() {
   background(backgroundColor); // Set the background color.
@@ -203,11 +196,41 @@ class RectangularBlock {
   }
 
   displayLines() {
+    let prevCol1, prevCol2, newCol;
     let x = this.x0;
     while (x < this.x0 + this.width + unitHeight / 2) {
-      stroke(mainColor); 
-      line(x, this.y0, x, this.y0 + this.height); 
+      newCol = getRandomColor(prevCol1);
+      if (random() < 2 / 3) newCol = mainColor;
+      fill(newCol);
+      prevCol1 = newCol;
+
+
+      rect(x + unitHeight / 4, this.y0, unitHeight / 2, this.height);
       x += unitHeight;
+    }
+
+    x = this.x0;
+    while (x < this.x0 + this.width + unitHeight / 2) {
+      newCol = getRandomColor(prevCol2);
+      if (random() < 2 / 3) newCol = mainColor;
+      fill(newCol);
+      prevCol2 = newCol;
+
+ 
+      rect(x, this.y0 + unitHeight / 4, this.width, unitHeight / 2);
+      x += unitHeight;
+    }
+
+    let y = this.y0 + unitHeight;
+    while (y < this.y0 + this.height - unitHeight / 2) {
+      newCol = getRandomColor(prevCol1);
+      if (random() < 2 / 3) newCol = mainColor;
+      fill(newCol);
+      prevCol1 = newCol;
+
+     
+      rect(this.x0, y + unitHeight / 4, this.width, unitHeight / 2);
+      y += unitHeight;
     }
   }
  
@@ -225,27 +248,11 @@ function getRandomColor(previousColor) {
 }
 
 
-function changeColors() {
-  let inputValue = select("#colorChangeInput").value();
-  let newColorValue = int(inputValue);
-  
-  // Validate the input (e.g., check if it's within a valid range)
-  if (newColorValue >= 0 && newColorValue <= 255) {
-    // Use newColorValue to change colors
-    for (let recta of rectanglesList) {
-      // Check if there is an inside color and set it to the new value
-      if (recta.newColor) {
-        recta.insideColor = [newColorValues, 255 - newColorValue, 255 - newColorValue];
-      }
-
-      // Set the outside color to the new value
-      recta.outsideColor = [newColorValue, 255 - newColorValue, 255 - newColorValue];
-    }
-
-    redraw(); // Redraw the canvas to reflect the color changes
-  } else {
-    // Handle invalid input (e.g., show an error message)
-    console.log("Invalid input. Please enter a number between 0 and 255.");
+function generateLines() {
+  background(backgroundColor);
+  translate(width / 2 - unitHeight / 2, height / 2 - unitHeight / 2);
+  for (let recta of rectanglesList) {
+    recta.displayLines();
   }
 }
 
