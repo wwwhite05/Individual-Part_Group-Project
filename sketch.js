@@ -89,6 +89,8 @@ function createComposition() {
 
 
 
+
+
 // Function to generate a new rectangle with certain constraints.
 function generateRectangle() {
   let widthInUnits, heightInUnits;
