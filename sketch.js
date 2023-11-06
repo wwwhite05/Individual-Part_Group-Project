@@ -22,9 +22,16 @@ function setup() {
   noLoop(); // Ensure that the draw loop does not loop.
   createComposition(); // Call the function to create the composition.
 
-  let colorChangeButton = select("#colorChangeButton");
-  // Add a click event listener to the button
-  colorChangeButton.mousePressed(changeColors);
+  let lineGenerateButton = select("#lineGenerateButton");
+  lineGenerateButton.mousePressed(generateLines); 
+}
+
+function generateLines() {
+  background(backgroundColor);
+  translate(-width / 2 - unitHeight / 2, -height / 2 - unitHeight / 2);
+  for (let recta of rectanglesList) {
+    recta.displayLines();
+  }
 }
 
 function draw() {
@@ -192,6 +199,15 @@ class RectangularBlock {
       prevCol1 = newCol;
       square(this.x0, y, unitHeight);
       y += unitHeight;
+    }
+  }
+
+  displayLines() {
+    let x = this.x0;
+    while (x < this.x0 + this.width + unitHeight / 2) {
+      stroke(mainColor); 
+      line(x, this.y0, x, this.y0 + this.height); 
+      x += unitHeight;
     }
   }
  
