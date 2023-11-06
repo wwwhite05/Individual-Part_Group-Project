@@ -22,7 +22,7 @@ function setup() {
   noLoop(); // Ensure that the draw loop does not loop.
   createComposition(); // Call the function to create the composition.
 
-  let lineGenerateButton = select("#lineGenerateButton");
+  let lineGenerateButton = select("#lineGenerateButton"); //Add a botton to generate lines
   lineGenerateButton.mousePressed(generateLines); 
 }
 
@@ -163,6 +163,7 @@ class RectangularBlock {
       }
     }
 
+    //Display the rectangles which will generate the lines
     let prevCol1, prevCol2, newCol;
     let x = this.x0;
     while (x < this.x0 + this.width + unitHeight / 2) {
@@ -195,6 +196,7 @@ class RectangularBlock {
     }
   }
 
+  //Method to display the lines
   displayLines() {
     let prevCol1, prevCol2, newCol;
     let x = this.x0;
@@ -203,7 +205,6 @@ class RectangularBlock {
       if (random() < 2 / 3) newCol = mainColor;
       fill(newCol);
       prevCol1 = newCol;
-
 
       rect(x + unitHeight / 4, this.y0, unitHeight / 2, this.height);
       x += unitHeight;
@@ -247,7 +248,7 @@ function getRandomColor(previousColor) {
   }
 }
 
-
+//Male the rectangle list transform to lines.
 function generateLines() {
   background(backgroundColor);
   for (let recta of rectanglesList) {
